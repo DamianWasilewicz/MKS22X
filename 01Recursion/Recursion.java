@@ -1,5 +1,5 @@
 public class Recursion{
-  //function takes in n and calls helper function with n and starting factorial;
+  //function takes in n and returns factorial value;
   public int fact(int n){
     if(n < 0){
       throw new IllegalArgumentException();
