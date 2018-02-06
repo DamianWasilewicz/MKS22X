@@ -4,16 +4,19 @@ public class Recursion{
     if(n < 0){
       throw new IllegalArgumentException();
     }
-    return facthelp(n, 1);
+    if(n == 1 || n == 0){
+      return 1;
+    }
+    return n * fact(n - 1);
   }
-  //helper function, returns factorial of inputted number;
+/*  //helper function, returns factorial of inputted number;
   public int facthelp(int n, int product){
     int answer = product;
     if(n == 0 || n == 1){
       return answer;
     }
     return facthelp(n-1, product * n);
-  }
+  }*/
   //function takes in n and calls helper function with n and starting two numbers;
   public int fib(int n){
     if(n < 0){
@@ -41,7 +44,7 @@ public class Recursion{
     }
     return sqrthelp(n, 1.0);
   }
-  //helper function returns guess for square root of n by using Euclid's method of guessing, to small percentage of error;
+  //helper function returns guess for square root of n by using Euclid's method of guessing, to small percentage of error
   public double sqrthelp(double n, double guess){
     if(n == 1){
       return 1;
