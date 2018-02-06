@@ -9,14 +9,6 @@ public class Recursion{
     }
     return n * fact(n - 1);
   }
-/*  //helper function, returns factorial of inputted number;
-  public int facthelp(int n, int product){
-    int answer = product;
-    if(n == 0 || n == 1){
-      return answer;
-    }
-    return facthelp(n-1, product * n);
-  }*/
   //function takes in n and calls helper function with n and starting two numbers;
   public int fib(int n){
     if(n < 0){
