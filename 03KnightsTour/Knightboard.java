@@ -1,15 +1,9 @@
-public class Knightboard{
-  public static void main(String[] args){
-	Knightboard test = new Knightboard(7, 7);
-  //System.out.println(test.solve(0,0));
-//  System.out.println(test.toString());
-  System.out.println(test.CountSolutions(0,0));
-   }
+public class KnightBoard{
    private int[][] moveset ={ {2,1} , {2,-1} , {-2, 1} , {-2,  -1} , {1, 2} , {1, -2} , {-1, 2} , {-1, -2}};
    private int[][] board;
-   public Knightboard(int startingRows, int startingCols){
+   public KnightBoard(int startingRows, int startingCols){
 	if(startingRows < 0 || startingCols < 0){
-	    throw new IllegalArgumentException();
+	    throw new IllegalArgumentException("You can't have negative startings rows or starting columns");
 	}
 	int[][] data = new int[startingRows][startingCols];
 	board = data;
@@ -23,7 +17,7 @@ public boolean solve(int StartingRow, int StartingCol){
 	    }
 	}
 	if(StartingRow < 0 || StartingCol < 0){
-	    throw new IllegalStateException("Your can't have negative StartingRows or StartingCols");
+	    throw new IllegalArgumentException("You can't have negative StartingRows or StartingCols");
 	}
 	return solveHelper(StartingRow, StartingCol, 1);
   }
@@ -49,7 +43,7 @@ public boolean solve(int StartingRow, int StartingCol){
        }
        return false;
      }
-     public int CountSolutions(int StartingRow, int StartingCol){
+     public int countSolutions(int StartingRow, int StartingCol){
      	for(int r = 0; r < board.length; r++){
      	    for(int c = 0; c< board[r].length; c++){
      		if(board[r][c] != 0){
@@ -58,11 +52,11 @@ public boolean solve(int StartingRow, int StartingCol){
      	    }
      	}
      	if(StartingRow < 0 || StartingCol < 0){
-     	    throw new IllegalStateException("Your can't have negative StartingRows or StartingCols");
+     	    throw new IllegalArgumentException("You can't have negative StartingRows or StartingCols");
      	}
-     	return CountSolutionsHelper(StartingRow, StartingCol, 1);
+     	return countSolutionsHelper(StartingRow, StartingCol, 1);
        }
-     public int CountSolutionsHelper(int StartingRow, int StartingCol, int level){
+  public int countSolutionsHelper(int StartingRow, int StartingCol, int level){
        int number = 0;
        if(level == board.length * board[0].length && board[StartingRow][StartingCol] == 0){
          return 1;
@@ -74,12 +68,8 @@ public boolean solve(int StartingRow, int StartingCol){
             StartingCol + moveset[counter][1] < 0 ||
              board[StartingRow + moveset[counter][0]][StartingCol + moveset[counter][1]] != 0)) {
             board[StartingRow][StartingCol] = level;
-             if(CountSolutionsHelper(StartingRow + moveset[counter][0], StartingCol + moveset[counter][1], level + 1) > 0) {
-            number+=1;
-             }
-             else {
-               board[StartingRow][StartingCol] = 0;
-             }
+            number+=countSolutionsHelper(StartingRow + moveset[counter][0], StartingCol + moveset[counter][1], level + 1);
+            board[StartingRow][StartingCol] = 0;
              }
            }
            return number;
