@@ -10,17 +10,15 @@ public class Maze{
     public Maze(String filename) throws FileNotFoundException(){
 	int row = 0;
 	int col = 0;
-        File text = new File(filename);
-	Scanner inf = new Scanner(text);
+	char[][] data = new char[][];
+	mazeInfo = new ArrayList<String>();
+	Scanner inf = new Scanner(new File(filename)) ;
 	   while(int.hasNextLine()){
-           	if(col == char[row].length - 1){
-		    col = 0;
-		    row+= 1;
-		}
-		String line = inf.nextLine();
-		char[row][col] = line.substring(col, col + 1);
-		col++;
-	    }
+		String line = inf.next();
+		mazeInfo.add(line);
+	   }
+	   for(int counter = 0; counter < mazeInfo.size(); counter++){
+	       
     }
      private void wait(int millis){
          try {
