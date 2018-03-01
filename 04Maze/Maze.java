@@ -7,17 +7,17 @@ public class Maze{
     
     private boolean animate;
 
-    public Maze(String filename) throws FileNotFoundException(){
-	int row = 0;
-	int col = 0;
-	char[][] data = new char[][];
-	mazeInfo = new ArrayList<String>();
+    public Maze(String filename) throws FileNotFoundException{
+	char[][] data;
+	mazeInfo = new ArrayList<char[]>();
 	Scanner inf = new Scanner(new File(filename)) ;
 	   while(int.hasNextLine()){
 		String line = inf.next();
-		mazeInfo.add(line);
+		mazeInfo.add(line.toCharArray());
 	   }
 	   for(int counter = 0; counter < mazeInfo.size(); counter++){
+	       for(int counter1 = 0; counter1 < 
+	        
 	       
     }
      private void wait(int millis){
