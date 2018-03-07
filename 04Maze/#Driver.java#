@@ -10,7 +10,7 @@ public class Driver{
       System.out.println("------------------------");
       System.out.println(f);
     }
-    catch(FileNotFoundException() e){
+    catch(FileNotFoundException e){
       System.out.println("File nowhere to be found");
     }
   }
