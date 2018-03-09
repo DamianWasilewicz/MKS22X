@@ -135,7 +135,7 @@ public class Maze{
         maze[r][c] = '.';
         num--;
       }
-      return -1;
+      return 0;
     }
     public int count(){
       int answer = 0;
