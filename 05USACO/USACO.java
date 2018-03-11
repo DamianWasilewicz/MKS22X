@@ -6,8 +6,13 @@ public class USACO{
   public static void main(String[] args){
     System.out.println(USACO.silver("SampleInput.txt"));
   }
+  public static int bronze(String filename){
+
+  }
+
+
+
     public static int silver(String filename){
-    ArrayList<char[]> filewords = new ArrayList<char[]>();
    try{
          Scanner in = new Scanner(new File(filename));
          int rows = in.nextInt();
@@ -24,7 +29,7 @@ public class USACO{
         int C2 = in.nextInt() - 1;
        int[][] secondArray = new int[rows][cols];
        secondArray[R1][C1] = 1;
-      
+
        int timeCounter = 0;
        while(timeCounter < time){
          int[][] thirdArray = new int[rows][cols];
