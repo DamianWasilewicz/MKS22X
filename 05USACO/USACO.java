@@ -4,11 +4,104 @@ import java.io.*;
 
 public class USACO{
   public static void main(String[] args){
-    System.out.println(USACO.silver("SampleInput.txt"));
+    System.out.println(USACO.bronze("SampleInput.txt"));
   }
-  public static int bronze(String filename){
+  /*public static void main(String[] args){
+	for (int i = 1; i < 11; i ++){
+	    String file = "makelake/makelake." + i; // Remove the "makelake/" if the test files are in the same directory
+	    int ans = getAnswer(file + ".out");
 
-  }
+	    int ansU = USACO.bronze(file + ".in");
+
+	    System.out.println("Your Answer: " + ansU);
+	    System.out.println("Answer: " + ans);
+	    System.out.println("Correct? " + (ans == ansU));
+	}
+
+
+	for (int i = 1; i < 11; i ++){
+	    String file = "ctravel/ctravel." + i; // Remove the "ctravel/" if the test files are in the same directory
+	    int ans = getAnswer(file + ".out");
+
+	    int ansU = USACO.silver(file + ".in");
+
+	    System.out.println("Your Answer: " + ansU);
+	    System.out.println("Answer: " + ans);
+	    System.out.println("Correct? " + (ans == ansU));
+	}
+	//System.out.println(USACO.silver("ctravel/ctravel.1.in"));
+    }
+
+    public static int getAnswer(String filename){
+	try{
+	    File f = new File(filename);
+	    Scanner s = new Scanner(f);
+
+	    String inty = s.nextLine();
+	    return Integer.parseInt(inty);
+
+	}catch (FileNotFoundException e){
+	    System.out.println("FILE!");
+	}
+	return 0;
+    }
+ */
+  public static int bronze(String filename){
+    try{
+      Scanner in = new Scanner(new File(filename));
+      int rows = in.nextInt();
+      int cols = in.nextInt();
+      int elevation = in.nextInt();
+      int numMoves = in.nextInt();
+      int[][] lake = new int[rows][cols];
+      for(int r = 0; r< rows; r++){
+        for(int c = 0; c< cols; c++){
+          lake[r][c] = in.nextInt();
+        }
+      }
+      int[][] moveset = new int[numMoves][3];
+        for(int counter = 0; counter < numMoves; counter++){
+          for(int counter1 = 0; counter1 < 3; counter1++){
+            moveset[counter][counter1] = in.nextInt();
+          }
+        }
+      for(int movenum = 0; movenum < numMoves; movenum++){
+      int maximumElevation = 0;
+      for(int counter = moveset[movenum][0] - 1; counter < moveset[movenum][0] +2 ; counter++){
+          for(int counter1 = moveset[movenum][1] - 1; counter1 < moveset[movenum][1] +2 ; counter1++){
+            if(lake[counter][counter1] > maximumElevation){
+              maximumElevation = lake[counter][counter1];
+            }
+        }
+      }
+      int threshold = maximumElevation - moveset[movenum][2];
+      for(int counter = moveset[movenum][0] - 1; counter < moveset[movenum][0] + 2 ; counter++){
+          for(int counter1 = moveset[movenum][1] - 1; counter1 < moveset[movenum][1] + 2 ; counter1++){
+            if(lake[counter][counter1] >= threshold){
+              lake[counter][counter1] = threshold;
+            }
+          }
+        }
+      }
+        int totalAmountofWater = 0;
+        for(int counter = 0; counter < rows ; counter++){
+            for(int counter1 = 0; counter1 < cols; counter1++){
+              if(elevation - lake[counter][counter1] > 0){
+                lake[counter][counter1] = elevation - lake[counter][counter1];
+              }
+              else{
+                lake[counter][counter1] = 0;
+              }
+             totalAmountofWater+= lake[counter][counter1];
+           }
+         }
+         return totalAmountofWater * 6 * 6 * 12 * 12;
+}
+catch(FileNotFoundException e){
+  System.out.println("File not Found");
+}
+return -1;
+}
 
 
 
