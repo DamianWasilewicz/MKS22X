@@ -13,9 +13,10 @@ public class QuickSelect{
     int lessThan = start + 1;
     int greaterThan = end;
     while(lessThan <= greaterThan){
-      if(data[lessThan] < data[start]){
-        lessThan++;
+      if(data[lessThan] == data[start]){
+        i++;
       }
+      if else(data[less
       else{
         swap(data, lessThan, greaterThan);
         greaterThan--;
