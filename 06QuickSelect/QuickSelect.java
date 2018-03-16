@@ -2,27 +2,31 @@ import java.util.Random;
 public class QuickSelect{
   public static void main(String[] args){
     int[] test = new int[] {400, 60, 7, 300, 5000, 3, 9, 10000, 15, 200,70, 274};
-  QuickSelect.quickSort(test);
+    QuickSelect.partition(test, 0, 10);
   System.out.println(toString(test));
   }
   //public static
   public static int partition(int[] data, int start, int end){
     Random rand = new Random();
     int pivotIndex = rand.nextInt(end-start + 1) + start;
-    swap(data, start, pivotIndex);
-    int lessThan = start + 1;
+    int lessThan = start;
+    int i = start;
     int greaterThan = end;
-    while(lessThan <= greaterThan){
-      if(data[lessThan] == data[start]){
+    while(i <= greaterThan){
+      if(data[i] == data[pivotIndex]){
         i++;
       }
-      if else(data[less
+      else if(data[i] > data[pivotIndex]){
+	      swap(data, i, greaterThan);
+	      greaterThan--;
+      }
       else{
-        swap(data, lessThan, greaterThan);
-        greaterThan--;
+        swap(data, lessThan, i);
+        lessThan++;
+	i++;
       }
     }
-    swap(data,start,greaterThan);
+    System.out.println("" + start + "," + end "  " + 
     return greaterThan;
     }
     public static void swap(int[] ary, int a, int b){
