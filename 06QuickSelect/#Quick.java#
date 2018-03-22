@@ -51,6 +51,9 @@ public static int partitionNonDutchSail(int[] data, int start, int end){
     return greaterThan;
     }
   public static int[] partition(int[] data, int start, int end){
+    if(data.length < 2){
+      return start;
+    }
      Random rand = new Random();
      int pivotIndex = (int) (Math.random() * (end-start)) + start;
      int pivotElement = data[pivotIndex];
@@ -71,7 +74,7 @@ public static int partitionNonDutchSail(int[] data, int start, int end){
          }
      }
      swap(data,greaterThan, start);
-     return new int[] {lessThan, greaterThan};
+     return new int[] {smallerT;
      }
     public static void swap(int[] ary, int a, int b){
   int c = ary[a];
@@ -80,7 +83,7 @@ public static int partitionNonDutchSail(int[] data, int start, int end){
 }
 
 
-    /* public static int quickselect(int[] data, int k){
+ public static int quickselect(int[] data, int k){
    int counter = data.length;
     while(counter != k){
      if(counter > k){
@@ -91,15 +94,15 @@ public static int partitionNonDutchSail(int[] data, int start, int end){
     }
  }
  return data[k];
- }*/
+ }
 public static void quicksort(int[] data){
   quicksortH(data, 0, data.length - 1);
 }
 public static void quicksortH(int[] data, int start, int end){
   if(start < end){
-    int[] startingPoints = partition(data, start, end);
-    quicksortH(data, start, startingPoints[0]);
-    quicksortH(data, startingPoints[1], end);
+    int startingPoint = partition(data, start, end);
+    quicksortH(data, start, startingPoint - 1);
+    quicksortH(data, startingPoint + 1, end);
   }
   }
 
