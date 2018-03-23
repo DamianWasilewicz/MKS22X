@@ -1,6 +1,6 @@
  import java.util.Arrays;
 public class Driver{
- 
+
 
  //Sort testing code
   private static final int INCREASE = 0;
@@ -57,14 +57,14 @@ public class Driver{
 
   public static void main(String[]args){
     if(args.length < 2)return;
-    
+
     int size =  Integer.parseInt(args[0]);
     int type =   Integer.parseInt(args[1]);
 
     int [] start = makeArray(size,type);
     int [] result = Arrays.copyOf(start,start.length);
     Arrays.sort(result);
-    
+
     long startTime = System.currentTimeMillis();
     Quick test = new Quick();
     test.quicksort(start);

@@ -1,12 +1,12 @@
 import java.util.Random;
 public class Quick{
-  /*public static void main(String[] args){
+  public static void main(String[] args){
     int[] test = new int[] {300, 20, 1, 4000, 50000, 8000000, 700000, 60000, 90000000};
     System.out.println(Quick.quickselect(test, 7));
     System.out.println(Quick.partition(test, 0, 8));
   System.out.println(toString(test));
-}*/
-public static void main(String[] args){
+}
+/*public static void main(String[] args){
 	try{
 	    int[] test = new int[Integer.parseInt(args[0])];
 	    for(int i =0; i < test.length; i++){
@@ -25,8 +25,7 @@ public static void main(String[] args){
 	catch(Exception IndexOutOfBounds){
 	    System.out.println("After the file name insert the size of the array and the bounds for the numbers in the array"+"\n"+"EX: FileName 10 200"+"\n"+"Would give an array of size 10 with numbers ranging from -200 to 200");
 	}
-
-    }
+}*/
 public static int partitionNonDutchSail(int[] data, int start, int end){
     Random rand = new Random();
     int pivotIndex = rand.nextInt(end-start + 1) + start;
@@ -50,29 +49,34 @@ public static int partitionNonDutchSail(int[] data, int start, int end){
     System.out.println("" + start + "," + end + "  ");
     return greaterThan;
     }
+
   public static int[] partition(int[] data, int start, int end){
      Random rand = new Random();
-     int pivotIndex = (int) (Math.random() * (end-start)) + start;
+     int pivotIndex = (int) (Math.random() * (end-start + 1)) + start;
      int pivotElement = data[pivotIndex];
-     swap(data, start, pivotIndex);
-     int lessThan = start + 1;
+		 data[pivotIndex] = data[start];
+     data[start] = pivotElement;
+		 int counter = start + 1;
+     int lessThan = start;
      int greaterThan = end;
-     while(lessThan <= greaterThan){
-      if(data[lessThan] < pivotElement){
-         lessThan++;
+     while(counter <= greaterThan){
+      if(data[counter] > pivotElement){
+				swap(data, counter, greaterThan);
+         greaterThan--;
        }
-       else if(pivotIndex <= end && data[lessThan] == pivotElement){
-        swap(data, lessThan, pivotIndex);
-        pivotIndex++;
+       else if(data[counter] == pivotElement){
+        counter++;
        }
        else{
-         swap(data, greaterThan, lessThan);
-           greaterThan--;
+         swap(data, counter, lessThan);
+           lessThan++;
+					 counter++;
          }
      }
-     swap(data,greaterThan, start);
      return new int[] {lessThan, greaterThan};
      }
+
+
     public static void swap(int[] ary, int a, int b){
   int c = ary[a];
   ary[a] = ary[b];
@@ -80,26 +84,29 @@ public static int partitionNonDutchSail(int[] data, int start, int end){
 }
 
 
-    /* public static int quickselect(int[] data, int k){
-   int counter = data.length;
-    while(counter != k){
-     if(counter > k){
-       counter = partition(data, 0, counter - 1);
+    public static int quickselect(int[] data, int k){
+     int[] counterarray = partition(data, 0, data.length - 1);
+		 int starting = 0;
+		 int ending = data.length - 1;
+    while(k < counterarray[0] || k > counterarray[1]){
+     if(counterarray[0] > k){
+       ending = counterarray[0];
     }
-    else{
-      counter = partition(data, counter + 1, data.length - 1);
+    else if(counterarray[1] < k){
+      starting = counterarray[1];
     }
+		counterarray = partition(data, starting, ending);
  }
  return data[k];
- }*/
+ }
 public static void quicksort(int[] data){
   quicksortH(data, 0, data.length - 1);
 }
 public static void quicksortH(int[] data, int start, int end){
   if(start < end){
     int[] startingPoints = partition(data, start, end);
-    quicksortH(data, start, startingPoints[0]);
-    quicksortH(data, startingPoints[1], end);
+    quicksortH(data, start, startingPoints[0] - 1);
+    quicksortH(data, startingPoints[1] + 1, end);
   }
   }
 
