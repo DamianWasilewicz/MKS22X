@@ -16,7 +16,6 @@ public class Merge{
   }*/
   if(endP - startP <= 10){
 	  insertionSort(data, startP, endP);
-    return;
   }
   for(int counter = startP; counter <= endP; counter++){
     temp[counter] = data[counter];
