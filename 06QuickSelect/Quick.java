@@ -103,13 +103,25 @@ public static void quicksort(int[] data){
   quicksortH(data, 0, data.length - 1);
 }
 public static void quicksortH(int[] data, int start, int end){
+  if(end - start < 5){
+    insertionSort(data, start, end);
+  }
   if(start < end){
     int[] startingPoints = partition(data, start, end);
     quicksortH(data, start, startingPoints[0] - 1);
     quicksortH(data, startingPoints[1] + 1, end);
   }
   }
-
+  public static void insertionSort(int[] data, int sP, int eP){
+   int c;
+     for(int counter = sP; counter <= eP; counter++){
+       int c2 = data[counter];
+       for(c = counter; c > sP && c2 < data[c - 1]; c--){
+         data[c] = data[c - 1];
+         }
+         data[c] = c2;
+        }
+  }
   public static String toString(int[] data){
     String answer = "[";
     for(int counter = 0; counter < data.length; counter++){
