@@ -20,9 +20,6 @@ public class MyLinkedList{
 	return this.size;
     }
     public Integer get(int index){
-	Node answer = getNode(index);
-	return answer.getValue();
-    }
     private Node getNode(int index){
 	if(index > length || index < 0){
 	    throw new IndexOutOfBoundsException() e;
