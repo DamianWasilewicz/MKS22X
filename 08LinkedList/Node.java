@@ -1,7 +1,21 @@
 public class Node{
+  public static void main(String[] args){
+    Node test = new Node();
+    test.setValue(1);
+    Node n = new Node();
+    n.setValue(2);
+    Node p = new Node(0);
+    test.setNext(n);
+    test.setPrev(p);
+    System.out.println(test.getValue());
+    System.out.println(test.getNext().toString());
+    System.out.println(test.getPrev().toString());
+  }
     Integer data;
     Node next = null;
     Node prev = null;
+    public Node(){
+    }
     public Node(Integer value){
 	data = value;
     }
