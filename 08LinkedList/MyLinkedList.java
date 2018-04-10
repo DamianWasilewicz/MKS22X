@@ -220,7 +220,7 @@ public class MyLinkedList{
      answer = start;
      start = start.getNext();
    }
-   else if (index == size() -1){
+   else if (index == size() - 1){
      answer = end;
      end = end.getPrev();
    }
