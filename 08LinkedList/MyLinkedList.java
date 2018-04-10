@@ -200,17 +200,20 @@ public class MyLinkedList{
   }
   }
   public void add(int index, Integer value){
-    if(index >= size || index < 0){
+      Node data = new Node(value);
+    if(size == 0 && index == 0){
+      start = data;
+      end = data;
+    }
+    if(index > size || index < 0){
       throw new IndexOutOfBoundsException();
     }
-    Node data = new Node(value);
-    size = size + 1;
     if(index == 0){
       start.setPrev(data);
       data.setNext(start);
       start = data;
     }
-    else if(index == size() - 1){
+    else if(index == size()){
       end.setNext(data);
       data.setPrev(end);
       end = data;
@@ -222,7 +225,8 @@ public class MyLinkedList{
       data.setPrev(p);
       p.setNext(data);
       n.setPrev(data);
-  }
+    }
+    size+=1;
 }
  public boolean remove(Integer value){
    Node data = start;
