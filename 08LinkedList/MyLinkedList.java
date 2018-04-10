@@ -223,6 +223,7 @@ public class MyLinkedList{
    else if (index == size() - 1){
      answer = end;
      end = end.getPrev();
+     end.setNext(null);
    }
    else{
      answer = getNode(index);
