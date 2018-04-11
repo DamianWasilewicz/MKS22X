@@ -218,7 +218,7 @@ public class MyLinkedList{
       data.setPrev(end);
       end = data;
     }
-    else if (index != 0 && index != size() - 1){
+    else if (index != 0 && index != size()){
       Node p = getNode(index - 1);
       Node n = getNode(index);
       data.setNext(n);
@@ -239,11 +239,15 @@ public class MyLinkedList{
      start = start.getNext();
    }
    else if(counter == size() - 1){
-     remove(counter);
+     Node p = getNode(counter - 1);
+     p.setNext(null);
+     end = p;
    }
   else if(counter != 0 && counter != size() - 1){
-    getNode(counter - 1).setNext(getNode(counter + 1));
-  getNode(counter + 1).setPrev(getNode(counter - 1));
+  Node n = getNode(counter + 1);
+  Node p = getNode(counter - 1);
+  p.setNext(n);
+  n.setPrev(p);
  }
  size-=1;
  return true;
@@ -252,22 +256,27 @@ public class MyLinkedList{
    if(index < 0 || index >= size){
      throw new IndexOutOfBoundsException();
    }
-   Node answer;
+   Node answer = null;
    if(index == 0){
-     answer = start;
+      answer = start;
      start = start.getNext();
+     start.setPrev(null);
+      size-=1;
    }
-   else if (index == size() - 1){
-     answer = end;
+  else if(index == size() - 1){
+   answer = end;
      end = end.getPrev();
      end.setNext(null);
+      size-=1;
    }
-   else{
-     answer = getNode(index);
-   getNode(index - 1).setNext(getNode(index + 1));
-   getNode(index + 1).setPrev(getNode(index - 1));
+   else if(index != 0 && index!= size() - 1){
+  answer = getNode(index);
+  Node n = getNode(index + 1);
+  Node p = getNode(index - 1);
+  p.setNext(n);
+  n.setPrev(p);
+    size-=1;
  }
-   size-=1;
-   return answer.getValue();
+ return answer.getValue();
  }
  }
