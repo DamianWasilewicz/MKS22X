@@ -1,14 +1,23 @@
 import java.util.*;
-public class MyLinkedListImproved <T> implements Iterable<T>{
+public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<T>{
     public static void main(String[] args){
 	MyLinkedListImproved<Integer> test = new MyLinkedListImproved<>();
 	for(int i = 0; i < 10; i++  ){
 	    Integer data = i * 10;
 	    test.add(i,data);
 	}
+  test.add(4, 5000);
 	for(Integer i : test){
 	    System.out.println(i + " ");
 	}
+  System.out.println(test.max());
+MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
+  for(int i = 0; i < 10; i++  ){
+	    Integer d = i * 100;
+	    data.add(i,d);
+	}
+  test.extend(data);
+  System.out.println(test.toString());
     }
     private Node start, end;
     private int size = 0;
@@ -31,7 +40,7 @@ public class MyLinkedListImproved <T> implements Iterable<T>{
 	    throw new UnsupportedOperationException();
 	}
     }
-    private class Node implements Comparable{
+    private class Node{
 	T data;
 	Node next = null;
 	Node prev = null;
@@ -63,8 +72,13 @@ public class MyLinkedListImproved <T> implements Iterable<T>{
 	public void setValue(T data){
 	    this.data = data;
 	}
-	public boolean compareTo(Node 
-    }
+}
+ public void extend(MyLinkedListImproved<T> other){
+     end.setNext(other.getStart());
+     end = other.getEnd();
+     other.setStart(null);
+     other.setEnd(null);
+   }
     public String toString(){
 	String answer = new String ("[");
 	for(Node counter = this.start; counter != null; counter = counter.getNext()){
@@ -79,6 +93,18 @@ public class MyLinkedListImproved <T> implements Iterable<T>{
     }
     public int size(){
 	return this.size;
+    }
+    public void setStart(Node s){
+      start = s;
+    }
+    public Node getStart(){
+      return start;
+    }
+    public void setEnd(Node e){
+      end = e;
+    }
+    public Node getEnd(){
+      return end;
     }
     public int indexOf(T value){
 	Node data = start;
@@ -179,12 +205,28 @@ public class MyLinkedListImproved <T> implements Iterable<T>{
 	size-=1;
 	return true;
     }
-    /*  public int max(){
+ public int max(){
 	Node current = start;
-	T max = current.getValue();
-        while(!current.equals(null)){
-	if(current.getValue()*/
-    public T remove(int index){
+  Node max = current;
+   while(current != null){
+	    if(current.getValue().compareTo(max.getValue()) > 0) {
+        max = current;
+      }
+        current = current.getNext();
+      }
+return indexOf(max.getValue());
+}
+public int min(){
+ Node current = start;
+ Node min = current;
+  while(current != null){
+     if(current.getValue().compareTo(min.getValue()) < 0) {
+       min = current;
+     }
+      current = current.getNext();}
+return indexOf(min.getValue());
+}
+public T remove(int index){
 	if(index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
 	}
