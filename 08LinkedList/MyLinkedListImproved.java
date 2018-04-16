@@ -6,11 +6,11 @@ public class MyLinkedListImproved <T extends Comparable<T>> implements Iterable<
 	    Integer data = i * 10;
 	    test.add(i,data);
 	}
-  test.add(4, 5000);
+  test.add(4, -400);
 	for(Integer i : test){
 	    System.out.println(i + " ");
 	}
-  System.out.println(test.max());
+  System.out.println(test.min());
 MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
   for(int i = 0; i < 10; i++  ){
 	    Integer d = i * 100;
@@ -74,17 +74,33 @@ MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
 	}
 }
  public void extend(MyLinkedListImproved<T> other){
-     end.setNext(other.getStart());
+   if(other.size() > 0){
+     if(size() > 0){
+       end.setNext(other.start);
+       other.start.setPrev(end);
+       end = other.end;
+       size+= other.size();
+       other.clear();
+     }
+   }
+     else{end.setNext(other.getStart());
      end = other.getEnd();
      other.setStart(null);
      other.setEnd(null);
    }
+ }
     public String toString(){
 	String answer = new String ("[");
 	for(Node counter = this.start; counter != null; counter = counter.getNext()){
  	    answer+= counter.getValue() + " ";
 	}
 	return answer+= "]";
+    }
+    public T getMax(){
+      return getNode(max()).getValue();
+    }
+    public T getMin(){
+      return getNode(min()).getValue();
     }
     public void clear(){
 	start = null;
