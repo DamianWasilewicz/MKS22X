@@ -4,10 +4,10 @@ public class Sort{
   //-----------SORTING POSITIVES-----------
       System.out.println("TESTING ON POSITIVE INTEGERS ONLY:");
       MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
-      int[] correctData = new int[10000];
+      int[] correctData = new int[10];
 
       //Create MyLinkedListImproved and array with random integers
-      for(int i = 0; i < 10000; i++){
+      for(int i = 0; i < 10; i++){
         int temp = (int)(Math.random() * 10000);
         data.add(temp);
         correctData[i] = temp;
@@ -45,9 +45,11 @@ public class Sort{
       }
       System.out.println("\n");
 }
-/*public static void radixsort(MyLinkedListImproved<Integer> data){
+public static void radixsort(MyLinkedListImproved<Integer> data){
   MyLinkedListImproved<Integer> neg = new MyLinkedListImproved<>();
   MyLinkedListImproved<Integer> pos = new MyLinkedListImproved<>();
+  MyLinkedListImproved<Integer> dataNeg = new MyLinkedListImproved<>();
+  MyLinkedListImproved<Integer> dataPos = new MyLinkedListImproved<>();
   for(Integer value : data){
     if(value >= 0){
       pos.add(value);
@@ -57,13 +59,13 @@ public class Sort{
     }
   }
   if(neg.size() > 0){
-    radixsortNeg(neg).extend(radixsortPos(pos));
+    dataNeg = radixsortHelper(neg, "-");
   }
-  else{
-    radixsortPos(pos);
+    dataPos = radixsortHelper(pos, "+");
+    dataNeg.extend(dataPos);
+    data = dataNeg;
   }
-}*/
-  public static MyLinkedListImproved<Integer> radixsort(MyLinkedListImproved<Integer> data){
+  public static MyLinkedListImproved<Integer> radixsortHelper(MyLinkedListImproved<Integer> data, String sign){
     MyLinkedListImproved<Integer> data1 = data;
     @SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] data2 = new MyLinkedListImproved[10];
     for(int counter  = 0; counter < 10; counter++){
@@ -75,38 +77,21 @@ public class Sort{
   int s = 10;
   while(counter >= 0){
     for(Integer c : data1){
-      data2[c % s / (s/10)].add(c);
+      data2[(c % s) / (s/10)].add(c);
     }
     data1.clear();
+    //if(sign.equals("+")){
       for(int i = 0; i < 10; i ++){
       data1.extend(data2[i]);
     }
-      s= s * 10;
-      counter--;
-    }
-    return data1;
-  }
-  public static MyLinkedListImproved<Integer> radixsortNeg(MyLinkedListImproved<Integer> data){
-    MyLinkedListImproved<Integer> data1 = data;
-    @SuppressWarnings("unchecked") MyLinkedListImproved<Integer>[] data2 = new MyLinkedListImproved[10];
-    for(int counter  = 0; counter < 10; counter++){
-      data2[counter] = new MyLinkedListImproved<Integer>();
-    }
-  int m = data.getMin();
-  String length = m + "";
-  int counter = length.length();
-  int s = 10;
-  while(counter >= 0){
-    for(Integer c : data1){
-      data2[c % s / (s/10)].add(c);
-    }
-    data1.clear();
+    /*if(sign.equals("-")){
       for(int i = 9; i >= 0; i --){
       data1.extend(data2[i]);
     }
-      s= s * 10;
+  }*/
+      s = s * 10;
       counter--;
     }
     return data1;
   }
-  }
+}

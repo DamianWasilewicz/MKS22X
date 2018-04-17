@@ -74,21 +74,20 @@ MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
 	}
 }
  public void extend(MyLinkedListImproved<T> other){
-   if(other.size() > 0){
-     if(size() > 0){
+   if(other.size() == 0){
+     return;
+   }
+   if(size() == 0){
+     end = other.end;
+     start = other.start;
+     size = other.size();
+   }
        end.setNext(other.start);
        other.start.setPrev(end);
        end = other.end;
        size+= other.size();
        other.clear();
      }
-   }
-     else{end.setNext(other.getStart());
-     end = other.getEnd();
-     other.setStart(null);
-     other.setEnd(null);
-   }
- }
     public String toString(){
 	String answer = new String ("[");
 	for(Node counter = this.start; counter != null; counter = counter.getNext()){
