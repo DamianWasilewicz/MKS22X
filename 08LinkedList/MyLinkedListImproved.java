@@ -82,12 +82,13 @@ MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
      start = other.start;
      size = other.size();
    }
-       end.setNext(other.start);
+      else{ end.setNext(other.start);
        other.start.setPrev(end);
        end = other.end;
        size+= other.size();
        other.clear();
      }
+   }
     public String toString(){
 	String answer = new String ("[");
 	for(Node counter = this.start; counter != null; counter = counter.getNext()){

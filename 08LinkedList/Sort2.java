@@ -1,6 +1,5 @@
-
 import java.util.*;
- public class Sort{
+ public class Sort2{
    public static void main (String[] args){
      //-----------SORTING POSITIVES-----------
      System.out.println("TESTING ON POSITIVE INTEGERS ONLY:");
