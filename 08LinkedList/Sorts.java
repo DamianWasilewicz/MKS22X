@@ -5,10 +5,10 @@ import java.util.*;
     //-----------SORTING POSITIVES-----------
     System.out.println("TESTING ON POSITIVE INTEGERS ONLY:");
     MyLinkedListImproved<Integer> data = new MyLinkedListImproved<>();
-    int[] correctData = new int[10];
+    int[] correctData = new int[10000];
 
     //Create MyLinkedListImproved and array with random integers
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 10000; i++){
       int temp = (int)(Math.random() * 1000);
       data.add(temp);
       correctData[i] = temp;
@@ -47,10 +47,10 @@ import java.util.*;
     //-----------SORTING NEGATIVES-----------
     System.out.println("TESTING ON NEGATIVE INTEGERS ONLY:");
     data.clear();
-    correctData = new int[10];
+    correctData = new int[10000];
 
     //Create MyLinkedListImproved and array with random integers
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 10000; i++){
       int temp = (int)(Math.random() * 1000);
       temp *= -1;
       data.add(temp);
@@ -90,10 +90,10 @@ import java.util.*;
   //-----------SORTING POSITIVES AND NEGATIVES-----------
     System.out.println("TESTING ON POSITIVE AND NEGATIVE INTEGERS:");
     data.clear();
-    correctData = new int[10];
+    correctData = new int[10000];
 
     //Create MyLinkedListImproved and array with random integers
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 10000; i++){
       int temp = (int)(Math.random() * 1000);
       if((int)(Math.random() * 1000) % 2 == 0){
         temp *= -1;
