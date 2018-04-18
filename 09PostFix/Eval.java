@@ -1,7 +1,7 @@
 import java.util.*;
-public class Eval{
+public class Calculator{
     public static void main(String[] args){
-	System.out.println(Eval.eval("5 4 + "));
+	System.out.println(Eval.eval("5 1 -"));
     }
     public static String eval(String expression){
 	LinkedList<String> data = new LinkedList<>();
@@ -16,15 +16,15 @@ public class Eval{
           else{
                  data.add(temp);
                }
-               temp = " ";
+               temp = "";
 	            }
 	  else{
       temp += expression.charAt(c);
     }
 	    }
       if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
-              double second = Double.parseDouble(data.pop());
               double first = Double.parseDouble(data.pop());
+              double second = Double.parseDouble(data.pop());
               data.add(evaluate(temp, first, second));
             }
 	return data.getFirst();
