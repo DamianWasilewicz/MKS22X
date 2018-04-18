@@ -9,8 +9,8 @@ public class Calculator{
 	for(int c = 0; c < expression.length(); c++){
 	  if(expression.charAt(c) == ' '){
 		   if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
-         double second = Double.parseDouble(data.pop());
          double first = Double.parseDouble(data.pop());
+         double second = Double.parseDouble(data.pop());
          data.add(evaluate(temp, first, second));
        }
           else{
