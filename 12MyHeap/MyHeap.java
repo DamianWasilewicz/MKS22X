@@ -2,8 +2,9 @@ public class MyHeap{
   private String[] data;
   private boolean minOrMax;
   private int size;
+  private int end;
   public static void main(String[] args){
-    MyHeap test = new MyHeap();
+    MyHeap test = new MyHeap(false);
     System.out.println(test.toString());
     System.out.println(test.size());
     System.out.println(test.data.length);
@@ -18,11 +19,20 @@ public class MyHeap{
     test.add("I");
     test.add("J");
     test.add("K");
-
+    test.add("L");
+    test.add("M");
+    test.add("N");
+    test.add("O");
     //test.resize();
     System.out.println(test.toString());
     System.out.println(test.size());
     System.out.println(test.data.length);
+    System.out.println(test.end);
+    test.remove();
+    System.out.println(test.toString());
+    System.out.println(test.size());
+    System.out.println(test.data.length);
+    System.out.println(test.end);
   }
   public MyHeap(){
     setBool(true);
@@ -39,11 +49,12 @@ public class MyHeap{
     return size;
   }
   public void add(String s){
-   if(size() == data.length){
+   if(size() == data.length - 1){
      resize();
    }
     if(size() == 0){
       data[0] = s;
+      end = 1;
     }
     else{
     data[size()] = s;
@@ -54,14 +65,15 @@ public class MyHeap{
        pushUpMin(s, size() - 1);
      }
    }
-     size+=1;
+     size++;
+     end++;
 }
   public void pushUpMin(String s, int loc){
     int location = loc;
     if(location == 0){
       return;
     }
-    else if(data[(location - 1)/ 2].compareTo(data[location]) < 0){
+    else if(data[(location - 1)/ 2].compareTo(data[location]) > 0){
       swap(data, (location-1)/2, location);
       location = (location - 1) / 2;
       pushUpMin(s, location);
@@ -72,10 +84,51 @@ public class MyHeap{
     if(location == 0){
       return;
     }
-    else if(data[(location - 1)/ 2].compareTo(data[location]) > 0){
+    else if(data[(location - 1)/ 2].compareTo(data[location]) < 0){
       swap(data, (location-1)/2, location);
       location = (location - 1) / 2;
       pushUpMax(s, location);
+    }
+  }
+  public void remove(){
+    swap(data, 0, end - 1);
+    if(minOrMax){
+      pushDownMax(0);
+    }
+    else{
+      pushDownMin(0);
+    }
+  }
+  public void pushDownMin(int loc){
+    int location = loc;
+    if(location + 1 == end || data[(2 * location) + 1] == null || data[(2 * location) + 1] == null) {
+      return;
+    }
+    else if(data[(2 * location) + 1].compareTo(data[location]) < 0){
+      swap(data, (2 * location) + 1, location);
+      location = (2 * location) + 1;
+      pushDownMin(location);
+    }
+    else if(data[(2 * location) + 2].compareTo(data[location]) < 0){
+      swap(data, (2 * location) + 2, location);
+      location = (2 * location) + 2;
+      pushDownMin(location);
+    }
+  }
+  public void pushDownMax(int loc){
+    int location = loc;
+    if(location + 1 == end){
+      return;
+    }
+    else if(data[(2 * location) + 1].compareTo(data[location]) > 0){
+      swap(data, (2 * location) + 1, location);
+      location = (2 * location) + 1;
+      pushDownMin(location);
+    }
+    else if(data[(2 * location) + 2].compareTo(data[location]) > 0){
+      swap(data, (2 * location) + 2, location);
+      location = (2 * location) + 2;
+      pushDownMin(location);
     }
   }
   public void resize(){
@@ -84,7 +137,6 @@ public class MyHeap{
       newData[c] = data[c];
     }
     data = newData;
-    size = 2 * size;
   }
   public String toString(){
     String answer = new String("[");
