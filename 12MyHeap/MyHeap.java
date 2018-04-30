@@ -4,30 +4,33 @@ public class MyHeap{
   private int size;
   private int end;
   public static void main(String[] args){
-    MyHeap test = new MyHeap(true);
+    MyHeap test = new MyHeap(false);
     System.out.println(test.toString());
     System.out.println(test.size());
     System.out.println(test.data.length);
-    test.add("A");
+    test.add("Z");
     test.add("B");
     test.add("C");
     test.add("D");
-    test.add("E");
+    test.add("X");
     test.add("F");
     test.add("G");
-    test.add("H");
+    test.add("V");
+    test.add("I");
+    test.add("J");
+    /*test.add("H");
     test.add("I");
     test.add("J");
     test.add("K");
     test.add("L");
     test.add("M");
     test.add("N");
-    test.add("O");
+    test.add("O");*/
     //test.resize();
     System.out.println(test.toString());
     System.out.println(test.size());
     System.out.println(test.data.length);
-    System.out.println(test.end);
+    System.out.println(test.peek());
     /*test.remove();
     System.out.println(test.toString());
     System.out.println(test.size());
@@ -59,16 +62,16 @@ public class MyHeap{
     else{
     data[size()] = s;
      if(minOrMax){
-      pushUpMax(s, size() -1);
+      pushUpMax(s, size());
     }
      else{
-       pushUpMin(s, size() - 1);
+       pushUpMin(s, size());
      }
    }
      size++;
      end++;
 }
-  public void pushUpMin(String s, int loc){
+public void pushUpMin(String s, int loc){
     int location = loc;
     if(location == 0){
       return;
@@ -98,6 +101,9 @@ public class MyHeap{
     else{
       pushDownMin(0);
     }
+  }
+  public String peek(){
+    return data[0];
   }
   public void pushDownMin(int loc){
     int location = loc;
