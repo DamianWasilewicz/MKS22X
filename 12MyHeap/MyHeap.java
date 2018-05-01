@@ -1,41 +1,43 @@
+import java.util.* ;
 public class MyHeap{
   private String[] data;
   private boolean minOrMax;
   private int size;
-  private int end;
-  public static void main(String[] args){
-    MyHeap test = new MyHeap(false);
-    System.out.println(test.toString());
-    System.out.println(test.size());
-    System.out.println(test.data.length);
-    test.add("Z");
-    test.add("B");
-    test.add("C");
-    test.add("D");
-    test.add("X");
-    test.add("F");
-    test.add("G");
-    test.add("V");
-    test.add("I");
-    test.add("J");
-    /*test.add("H");
-    test.add("I");
-    test.add("J");
-    test.add("K");
-    test.add("L");
-    test.add("M");
-    test.add("N");
-    test.add("O");*/
-    //test.resize();
-    System.out.println(test.toString());
-    System.out.println(test.size());
-    System.out.println(test.data.length);
-    System.out.println(test.peek());
-    /*test.remove();
-    System.out.println(test.toString());
-    System.out.println(test.size());
-    System.out.println(test.data.length);
-    System.out.println(test.end);*/
+ public static void main(String[] args) {
+    MyHeap a= new MyHeap(false);
+    String[] b = new String[20];
+    for(int i = 0; i < 20; i++){
+      int temp = (int)(Math.random() * 26) + 97;
+      char value = (char)temp;
+      a.add("" + value);
+      b[i] = "" + value;
+    }
+
+    Arrays.sort(b);
+
+    System.out.println("MyHeap: " + a);
+    System.out.println("Arrays: "+ Arrays.toString(b));
+
+    boolean isCorrect = true;
+    for(int i = 0; i < 20; i++){
+      //System.out.println("size: " + a.size());
+      //System.out.println("heap before: " + a.toT());
+      String temp = a.remove();
+      if(!(temp.equals(b[i]))){
+        System.out.println("there is an error");
+        System.out.println(temp);
+        System.out.println(b[i]);
+        System.out.println(a);
+        isCorrect = false;
+      }
+    }
+
+    if(isCorrect){
+      System.out.println("Your heap is correct!");
+    }
+    else{
+      System.out.println("There are error(s)");
+    }
   }
   public MyHeap(){
     setBool(true);
@@ -57,7 +59,6 @@ public class MyHeap{
    }
     if(size() == 0){
       data[0] = s;
-      end = 1;
     }
     else{
     data[size()] = s;
@@ -69,7 +70,6 @@ public class MyHeap{
      }
    }
      size++;
-     end++;
 }
 public void pushUpMin(String s, int loc){
     int location = loc;
@@ -93,50 +93,88 @@ public void pushUpMin(String s, int loc){
       pushUpMax(s, location);
     }
   }
-  public void remove(){
-    swap(data, 0, end - 1);
-    if(minOrMax){
-      pushDownMax(0);
-    }
-    else{
-      pushDownMin(0);
-    }
+  /*public String remove(){
+  String answer = peek();
+   swap(data, 0, size - 1);
+   size--;
+   if(minOrMax){
+     pushDownMax(0);
+   }
+   else{
+     pushDownMin(0);
+   }
+   return answer;
+ }*/
+ public String remove(){
+ String answer = peek();
+  swap(data, 0, size - 1);
+  size--;
+  if(minOrMax){
+    pushDownMax(0);
   }
-  public String peek(){
-    return data[0];
+  else{
+    pushDownMin(0);
   }
-  public void pushDownMin(int loc){
-    int location = loc;
-    if(location + 1 == end || data[(2 * location) + 1] == null || data[(2 * location) + 1] == null) {
-      return;
-    }
-    else if(data[(2 * location) + 1].compareTo(data[location]) < 0){
-      swap(data, (2 * location) + 1, location);
-      location = (2 * location) + 1;
-      pushDownMin(location);
-    }
-    else if(data[(2 * location) + 2].compareTo(data[location]) < 0){
-      swap(data, (2 * location) + 2, location);
-      location = (2 * location) + 2;
-      pushDownMin(location);
-    }
+  return answer;
+}
+    public void pushDownMax(int index){
+ int c = index*2;
+ if (c + 1 < size()&& data[index].compareTo(data[c+1]) < 0 && (c+2 >= size() || data[c+2].compareTo(data[c+1]) <= 0))
+  {
+     swap(data, index, c+1);
+     pushDownMax(c+1);
+ }
+
+ else if (c+2 < size() && data[index].compareTo(data[c+2]) < 0 && (c+1 >= size() || data[c+1].compareTo(data[c+2]) <= 0))
+ {
+     swap(data,index, c+2);
+     pushDownMax(c+2);
+ }
+   }
+   public void pushDownMin(int index){
+int c = index*2;
+if (c + 1 < size()&& data[index].compareTo(data[c+1]) > 0 && (c+2 >= size() || data[c+2].compareTo(data[c+1]) >= 0)
+    ){
+    swap(data, index, c+1);
+    pushDownMin(c+1);
+}
+
+else if (c+2 < size()&& data[index].compareTo(data[c+2]) > 0 && (c+1 >= size() || data[c+1].compareTo(data[c+2]) >= 0)
+   ){
+    swap(data,index, c+2);
+    pushDownMin(c+2);
+}
   }
-  public void pushDownMax(int loc){
-    int location = loc;
-    if(location + 1 == end){
-      return;
-    }
-    else if(data[(2 * location) + 1].compareTo(data[location]) > 0){
-      swap(data, (2 * location) + 1, location);
-      location = (2 * location) + 1;
-      pushDownMin(location);
-    }
-    else if(data[(2 * location) + 2].compareTo(data[location]) > 0){
-      swap(data, (2 * location) + 2, location);
-      location = (2 * location) + 2;
-      pushDownMin(location);
-    }
-  }
+
+ public String peek(){
+   return data[0];
+ }
+ /*public void pushDownMax(int loc){
+   int l = 2 * loc;
+   if(l + 1 < size() && data[loc].compareTo(data[l + 1]) < 0 &&
+   (l + 2 >= size() || data[l+2].compareTo(data[l + 1]) <= 0)) {
+     swap(data, l + 1, loc);
+     pushDownMax(l + 1);
+   }
+   else if(l+ 2 < size() && data[loc].compareTo(data[l + 2]) < 0 &&
+   (l + 1 >= size() || data[loc+1].compareTo(data[loc + 2]) <= 0)){
+     swap(data, l + 2, loc);
+     pushDownMax(l + 2);
+   }
+ }
+ public void pushDownMin(int loc){
+   int l = 2 * loc;
+   if(l + 1 < size() && data[loc].compareTo(data[l + 1]) > 0 &&
+   (l + 2 >= size() || data[l+2].compareTo(data[l + 1]) >= 0)) {
+     swap(data, l + 1, loc);
+     pushDownMax(l + 1);
+   }
+   else if(l+ 2 < size() && data[loc].compareTo(data[l + 2]) > 0 &&
+   (l + 1 >= size() || data[loc+1].compareTo(data[loc + 2]) >= 0)) {
+     swap(data, l + 2, loc);
+     pushDownMax(l + 2);
+   }
+ }*/
   public void resize(){
     String[] newData = new String[2 * size()];
     for(int c = 0; c < size(); c++){
