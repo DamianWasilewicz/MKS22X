@@ -1,9 +1,9 @@
 import java.util.* ;
-public class MyHeap{
-  private String[] data;
+public class MyHeap<T extends Comparable<T>>{
+  private T[] data;
   private boolean minOrMax;
   private int size;
- public static void main(String[] args) {
+    /*public static void main(String[] args) {
     MyHeap a= new MyHeap(false);
     String[] b = new String[20];
     for(int i = 0; i < 20; i++){
@@ -38,14 +38,16 @@ public class MyHeap{
     else{
       System.out.println("There are error(s)");
     }
-  }
+    }*/
+    @SuppressWarnings("unchecked")
   public MyHeap(){
     setBool(true);
-    data = new String[10];
+   data = new (T[]) new Comparable[10];
   }
+    @SuppressWarnings("unchecked")
   public MyHeap(boolean bool){
     setBool(bool);
-    data = new String[10];
+    data = new (T[]) new Comparable[10];
   }
   public void setBool(boolean bool){
     minOrMax = bool;
@@ -53,7 +55,7 @@ public class MyHeap{
   public int size(){
     return size;
   }
-  public void add(String s){
+  public void add(T s){
    if(size() == data.length - 1){
      resize();
    }
@@ -63,15 +65,15 @@ public class MyHeap{
     else{
     data[size()] = s;
      if(minOrMax){
-      pushUpMax(s, size());
+      pushUpMax(size());
     }
      else{
-       pushUpMin(s, size());
+       pushUpMin(size());
      }
    }
      size++;
 }
-public void pushUpMin(String s, int loc){
+public void pushUpMin(int loc){
     int location = loc;
     if(location == 0){
       return;
@@ -79,10 +81,10 @@ public void pushUpMin(String s, int loc){
     else if(data[(location - 1)/ 2].compareTo(data[location]) > 0){
       swap(data, (location-1)/2, location);
       location = (location - 1) / 2;
-      pushUpMin(s, location);
+      pushUpMin(location);
     }
   }
-  public void pushUpMax(String s, int loc){
+  public void pushUpMax(int loc){
     int location = loc;
     if(location == 0){
       return;
@@ -90,7 +92,7 @@ public void pushUpMin(String s, int loc){
     else if(data[(location - 1)/ 2].compareTo(data[location]) < 0){
       swap(data, (location-1)/2, location);
       location = (location - 1) / 2;
-      pushUpMax(s, location);
+      pushUpMax(location);
     }
   }
   /*public String remove(){
@@ -105,8 +107,8 @@ public void pushUpMin(String s, int loc){
    }
    return answer;
  }*/
- public String remove(){
- String answer = peek();
+ public T remove(){
+ T answer = peek();
   swap(data, 0, size - 1);
   size--;
   if(minOrMax){
@@ -146,7 +148,7 @@ else if (c+2 < size()&& data[index].compareTo(data[c+2]) > 0 && (c+1 >= size() |
 }
   }
 
- public String peek(){
+ public T peek(){
    return data[0];
  }
  /*public void pushDownMax(int loc){
@@ -175,8 +177,9 @@ else if (c+2 < size()&& data[index].compareTo(data[c+2]) > 0 && (c+1 >= size() |
      pushDownMax(l + 2);
    }
  }*/
+    @SuppressWarnings("unchecked")
   public void resize(){
-    String[] newData = new String[2 * size()];
+ T[]data = new (T[]) new Comparable[10];
     for(int c = 0; c < size(); c++){
       newData[c] = data[c];
     }
@@ -191,7 +194,7 @@ else if (c+2 < size()&& data[index].compareTo(data[c+2]) > 0 && (c+1 >= size() |
   }
     return answer + "]";
   }
-  public static void swap(String[] ary, int a, int b){
+  public static void swap(T[] ary, int a, int b){
     String c = ary[a];
     ary[a] = ary[b];
     ary[b] = c;
