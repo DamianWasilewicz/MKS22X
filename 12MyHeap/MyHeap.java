@@ -4,47 +4,47 @@ public class MyHeap<T extends Comparable<T>>{
   private boolean minOrMax;
   private int size;
   public static void main(String[] args) {
-    MyHeap<String> a= new MyHeap<>(false);
-    String[] b = new String[20];
-    for(int i = 0; i < 20; i++){
-      int temp = (int)(Math.random() * 26) + 97;
-      char value = (char)temp;
-      a.add("" + value);
-      b[i] = "" + value;
-    }
+     MyHeap<String> a = new MyHeap<>(false);
+     String[] b = new String[20];
+     for(int i = 0; i < 20; i++){
+       int temp = (int)(Math.random() * 26) + 97;
+       char value = (char)temp;
+       a.add("" + value);
+       b[i] = "" + value;
+     }
 
-    Arrays.sort(b);
+     Arrays.sort(b);
 
-    System.out.println("MyHeap: " + a);
-    System.out.println("Arrays: "+ Arrays.toString(b));
+     System.out.println("MyHeap: " + a);
+     System.out.println("Arrays: "+ Arrays.toString(b));
 
-    boolean isCorrect = true;
-    for(int i = 0; i < 20; i++){
-      //System.out.println("size: " + a.size());
-      //System.out.println("heap before: " + a.toT());
-      String temp = a.remove();
-      if(!(temp.equals(b[i]))){
-        System.out.println("there is an error");
-        System.out.println(temp);
-        System.out.println(b[i]);
-        System.out.println(a);
-        isCorrect = false;
-      }
-    }
+     boolean isCorrect = true;
+     for(int i = 0; i < 20; i++){
+       //System.out.println("size: " + a.size());
+       //System.out.println("heap before: " + a.toT());
+       String temp = a.remove();
+       if(!(temp.equals(b[i]))){
+         System.out.println("there is an error");
+         System.out.println(temp);
+         System.out.println(b[i]);
+         System.out.println(a);
+         isCorrect = false;
+       }
+     }
 
-    if(isCorrect){
-      System.out.println("Your heap is correct!");
-    }
-    else{
-      System.out.println("There are error(s)");
-    }
-    }
-    @SuppressWarnings("unchecked")
+     if(isCorrect){
+       System.out.println("Your heap is correct!");
+     }
+     else{
+       System.out.println("There are error(s)");
+     }
+   }
+   @SuppressWarnings("unchecked")
   public MyHeap(){
     setBool(true);
-   data = (T[]) new Comparable[10];
+    data = (T[]) new Comparable[10];
   }
-    @SuppressWarnings("unchecked")
+   @SuppressWarnings("unchecked")
   public MyHeap(boolean bool){
     setBool(bool);
     data = (T[]) new Comparable[10];
@@ -55,7 +55,7 @@ public class MyHeap<T extends Comparable<T>>{
   public int size(){
     return size;
   }
- public void add(T s){
+  public void add(T s){
    if(size() == data.length - 1){
      resize();
    }
@@ -94,7 +94,7 @@ public void pushUpMin(T s, int loc){
       location = (location - 1) / 2;
       pushUpMax(s, location);
     }
-}
+  }
   /*public String remove(){
   String answer = peek();
    swap(data, 0, size - 1);
@@ -108,7 +108,7 @@ public void pushUpMin(T s, int loc){
    return answer;
  }*/
  public T remove(){
- T answer = peek();
+   T answer = peek();
   swap(data, 0, size - 1);
   size--;
   if(minOrMax){
@@ -177,9 +177,9 @@ else if (c+2 < size()&& data[index].compareTo(data[c+2]) > 0 && (c+1 >= size() |
      pushDownMax(l + 2);
    }
  }*/
-    @SuppressWarnings("unchecked")
+  @SuppressWarnings("unchecked")
   public void resize(){
- T[]newData = (T[]) new Comparable[10];
+    T[] newData = (T[]) new Comparable[2 * size()];
     for(int c = 0; c < size(); c++){
       newData[c] = data[c];
     }
