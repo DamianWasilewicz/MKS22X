@@ -8,32 +8,25 @@ public class Maze{
   Location start,end;
   private char[][] maze;
 
-
-
-  /*
-  YOU MUST COMPLETE THIS METHOD!!!
-  YOU MUST COMPLETE THIS METHOD!!!
-  YOU MUST COMPLETE THIS METHOD!!!
-  */
   public Location[] getNeighbors(Location L){
     int siz = 0;
     int lx = L.getX();
     int ly = L.getY();
     Location[] answer = new Location[4];
-    int[][] arr = new int{ {0, 1}, {1, 0}, {-1, 0}, {0, -1} };
+    int[][] arr = new int[][]{ {0, 1}, {1, 0}, {-1, 0}, {0, -1} };
     for(int[] i : arr){
       if(lx + i[0] >= 0 && ly + i[1] >= 0 &&
       lx + i[0] < maze[0].length &&
-      ly +
-      get(lx + i[0], ly + i[1]) != '#' &&
-      get(lx + i[0], ly + i[1]) != '.')
+      ly + i[1] < maze.length &&
+      (get(lx + i[0], ly + i[1]) == ' ' ||
+      get(lx + i[0], ly + i[1]) == 'E' ))
       {
       Location temp = new Location(lx + i[0], ly + i[1], L);
       answer[siz] = temp;
       siz++;
     }
-    return answer;
   }
+  return answer;
 }
 
   public Location getStart(){
@@ -102,11 +95,8 @@ public class Maze{
 
     }
 
-    /*
-    THIS IS AN IMPORTANT PART BECAUSE YOU WILL NEED TO CHANGE IT LATER!
-    The start/end Locations may need more information later when we add
-    other kinds of frontiers!
-    */
+
+
     end = new Location(endr,endc,null);
     start = new Location(startr,startc,null);
   }

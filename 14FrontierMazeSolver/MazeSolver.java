@@ -2,7 +2,17 @@ import java.io.FileNotFoundException;
 public class MazeSolver{
   private Maze maze;
   private Frontier frontier;
+  public static void main(String[] args){
+    try{
+    MazeSolver test = new MazeSolver("data3.dat");
+    System.out.println(test.maze);
+    System.out.println(test.solve(1));
 
+     }catch(FileNotFoundException e){
+       System.out.println("File not found");
+       System.exit(1);
+     }
+    }
   public MazeSolver(String mazeText) throws FileNotFoundException{
     maze = new Maze(mazeText);
   }
@@ -28,6 +38,7 @@ public class MazeSolver{
     else{
       frontier = new FrontierStack();
     }
+    frontier.add(maze.getStart());
     while(frontier.hasNext()){
       Location temp = frontier.next();
       Location[] neighbors = maze.getNeighbors(temp);
@@ -35,10 +46,15 @@ public class MazeSolver{
       if(temp.getX() == e.getX() && temp.getY() == e.getY()){
         return true;
       }
+      if(!temp.equals(maze.getStart())){
+        maze.set(temp.getX(), temp.getY(), '.');
+      }
       for(Location n : neighbors){
+        if(n != null){
         if(n.getX() == e.getX() && n.getY() == e.getY()){
           return true;
         }
+      }
       }
       frontier.add(temp);
       for(Location n : neighbors){

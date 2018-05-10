@@ -1,13 +1,16 @@
-import java.util.Deque;
+import java.util.LinkedList;
 public class FrontierQueue implements Frontier{
-  private Deque<Location> queue;
+  private LinkedList<Location> queue;
+  public FrontierQueue(){
+    queue = new LinkedList<Location>();
+  }
   public Location next(){
-    return queue.removeFirst();
+    return queue.remove();
   }
   public void add(Location n){
-    queue.addLast(n);
+    queue.add(n);
   }
   public boolean hasNext(){
-    return !(queue.peekFirst() == null);
+    return (queue.peekFirst() != null);
   }
 }

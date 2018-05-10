@@ -1,13 +1,16 @@
-import java.util.Deque;
+import java.util.Stack;
 public class FrontierStack implements Frontier{
-  private Deque<Location> stack;
+  private Stack<Location> stack;
+  public FrontierStack(){
+    stack = new Stack<Location>();
+  }
   public Location next(){
-    return stack.removeFirst();
+    return stack.pop();
   }
   public void add(Location n){
-    stack.addFirst(n);
+    stack.add(n);
   }
   public boolean hasNext(){
-    return !(stack.peekFirst() == null);
+    return (stack.size()!= 0);
   }
 }
