@@ -60,6 +60,7 @@ public class MazeSolver{
       for(Location n : neighbors){
         frontier.add(n);
       }
+      System.out.println(temp);
     }
     return false;
   }

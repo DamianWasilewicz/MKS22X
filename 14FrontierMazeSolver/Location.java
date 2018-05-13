@@ -15,4 +15,7 @@ public class Location{
   public Location getPrev(){
     return previous;
   }
+  public String toString(){
+    return x + " " +y;
+  }
 }

@@ -11,6 +11,6 @@ public class FrontierQueue implements Frontier{
     queue.add(n);
   }
   public boolean hasNext(){
-    return (queue.peekFirst() != null);
+    return (queue.peek() != null);
   }
 }
