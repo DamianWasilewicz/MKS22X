@@ -8,27 +8,43 @@ public class Maze{
   Location start,end;
   private char[][] maze;
 
-  public Location[] getNeighbors(Location L){
-    int siz = 0;
+/* public Location[] getNeighbors(Location L){
     int lx = L.getX();
     int ly = L.getY();
     Location[] answer = new Location[4];
     int[][] arr = new int[][]{ {0, 1}, {1, 0}, {-1, 0}, {0, -1} };
-    for(int[] i : arr){
-      if(lx + i[0] >= 0 && ly + i[1] >= 0 &&
-      lx + i[0] < maze[0].length &&
-      ly + i[1] < maze.length &&
-      (get(lx + i[0], ly + i[1]) == ' ' ||
-      get(lx + i[0], ly + i[1]) == 'E' ))
+    for(int siz = 0; siz < 4; siz++){
+      if(lx + arr[siz][0] >= 0 && ly + arr[siz][1] >= 0 &&
+      lx + arr[siz][0] < maze[0].length &&
+      ly + arr[siz][1] < maze.length &&
+      (get(lx + arr[siz][0], ly + arr[siz][1]) == ' ' ||
+      get(lx + arr[siz][0], ly + arr[siz][1]) == 'E' ))
       {
-      Location temp = new Location(lx + i[0], ly + i[1], L);
+      Location temp = new Location(lx + arr[siz][0], ly + arr[siz][1], L);
       answer[siz] = temp;
-      siz++;
     }
   }
   return answer;
+}*/
+public Location[] getNeighbors(Location L){
+    Location[] answer = new Location[4];
+int[][]arr = {{1,0}, {0,1}, {-1, 0}, {0, -1}};
+int siz = 0;
+for (int[] counter:arr){
+    int newX = L.getX()+counter[0];
+    int newY = L.getY()+counter[1];
+    if (newX>=0 &&
+    newX<maze.length &&
+    newY>=0 &&
+    newY<maze[0].length &&
+	  (maze[newX][newY] == ' ' ||
+    maze[newX][newY] == 'E')) {
+  answer[siz] = new Location(L.getX()+counter[0], L.getY()+counter[1], L);
+    }
+    siz++;
 }
-
+return answer;
+  }
   public Location getStart(){
     return start;
   }

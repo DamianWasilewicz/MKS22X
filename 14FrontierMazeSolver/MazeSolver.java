@@ -38,29 +38,28 @@ public class MazeSolver{
     else{
       frontier = new FrontierStack();
     }
+    Location e = maze.getEnd();
     frontier.add(maze.getStart());
     while(frontier.hasNext()){
       Location temp = frontier.next();
+      System.out.println(maze);
       Location[] neighbors = maze.getNeighbors(temp);
-      Location e = maze.getEnd();
-      if(temp.getX() == e.getX() && temp.getY() == e.getY()){
-        return true;
-      }
       if(!temp.equals(maze.getStart())){
         maze.set(temp.getX(), temp.getY(), '.');
       }
       for(Location n : neighbors){
         if(n != null){
         if(n.getX() == e.getX() && n.getY() == e.getY()){
+          while(!temp.equals(maze.getStart())){
+            maze.set(temp.getX(), temp.getY(), '@');
+            temp = temp.getPrev();
+          }
           return true;
         }
+          frontier.add(n);
+          maze.set(n.getX(), n.getY(), '?');
+        }
       }
-      }
-      frontier.add(temp);
-      for(Location n : neighbors){
-        frontier.add(n);
-      }
-      System.out.println(temp);
     }
     return false;
   }

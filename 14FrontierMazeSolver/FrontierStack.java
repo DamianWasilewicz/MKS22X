@@ -11,6 +11,6 @@ public class FrontierStack implements Frontier{
     stack.add(n);
   }
   public boolean hasNext(){
-    return (stack.size()!= 0);
+  return (stack.size() != 0);
   }
 }
