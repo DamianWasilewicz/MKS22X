@@ -31,15 +31,16 @@ public Location[] getNeighbors(Location L){
 int[][]arr = {{1,0}, {0,1}, {-1, 0}, {0, -1}};
 int siz = 0;
 for (int[] counter:arr){
-    int newX = L.getX()+counter[0];
-    int newY = L.getY()+counter[1];
-    if (newX>=0 &&
-    newX<maze.length &&
-    newY>=0 &&
-    newY<maze[0].length &&
-	  (maze[newX][newY] == ' ' ||
-    maze[newX][newY] == 'E')) {
-  answer[siz] = new Location(L.getX()+counter[0], L.getY()+counter[1], L);
+    int nX = L.getX()+counter[0];
+    int nY = L.getY()+counter[1];
+    if (nX>=0 &&
+    nX<maze.length &&
+    nY>=0 &&
+    nY<maze[0].length &&
+	  (maze[nX][nY] == ' ' ||
+    maze[nX][nY] == 'E')) {
+      int prio =  Math.abs(nX - end.getX()) + Math.abs(nY - end.getY());
+      answer[siz] = new Location(L.getX()+counter[0], L.getY()+counter[1], L, prio);
     }
     siz++;
 }
@@ -113,8 +114,8 @@ return answer;
 
 
 
-    end = new Location(endr,endc,null);
-    start = new Location(startr,startc,null);
+    end = new Location(endr,endc,null, 0);
+    start = new Location(startr,startc,null, 0);
   }
 
   public String toStringColor(){

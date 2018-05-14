@@ -6,7 +6,7 @@ public class MazeSolver{
     try{
     MazeSolver test = new MazeSolver("data3.dat");
     System.out.println(test.maze);
-    System.out.println(test.solve(1));
+    System.out.println(test.solve(2));
 
      }catch(FileNotFoundException e){
        System.out.println("File not found");
@@ -35,25 +35,29 @@ public class MazeSolver{
     if(mode == 0){
       frontier = new FrontierQueue();
     }
-    else{
+    if(mode == 1){
       frontier = new FrontierStack();
+    }
+    else{
+      frontier = new FrontierPriorityQueue();
     }
     Location e = maze.getEnd();
     frontier.add(maze.getStart());
     while(frontier.hasNext()){
       Location temp = frontier.next();
-      System.out.println(maze);
+    //  System.out.println(maze);
       Location[] neighbors = maze.getNeighbors(temp);
       if(!temp.equals(maze.getStart())){
         maze.set(temp.getX(), temp.getY(), '.');
       }
       for(Location n : neighbors){
         if(n != null){
-        if(n.getX() == e.getX() && n.getY() == e.getY()){
-          while(!temp.equals(maze.getStart())){
-            maze.set(temp.getX(), temp.getY(), '@');
-            temp = temp.getPrev();
-          }
+          if(n.equals(e)){
+            while(!temp.equals(maze.getStart())){
+              maze.set(temp.getX(), temp.getY(), '@');
+              temp = temp.getPrev();
+            }
+            //  System.out.println(maze);
           return true;
         }
           frontier.add(n);
