@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 public class MazeSolver{
   private Maze maze;
+  private boolean AstarIs;
   private Frontier frontier;
   public static void main(String[] args){
     try{
@@ -38,15 +39,20 @@ public class MazeSolver{
     if(mode == 1){
       frontier = new FrontierStack();
     }
-    else{
+    if(mode == 2){
       frontier = new FrontierPriorityQueue();
+      AstarIs = false;
+    }
+    else{
+	frontier = new FrontierPriorityQueue();
+	AstarIs = true;
     }
     Location e = maze.getEnd();
     frontier.add(maze.getStart());
     while(frontier.hasNext()){
       Location temp = frontier.next();
-      System.out.println(maze);
-      Location[] neighbors = maze.getNeighbors(temp);
+    //  System.out.println(maze);
+      Location[] neighbors = maze.getNeighbors(temp, AstarIs);
       if(!temp.equals(maze.getStart())){
         maze.set(temp.getX(), temp.getY(), '.');
       }
