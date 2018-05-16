@@ -21,7 +21,7 @@ public class Maze{
     */
      public static void main(String[] args){
 	try{
-	Maze f = new Maze("data3.dat");
+	Maze f = new Maze("data2.dat");
 	f.setAnimate(true);
 	System.out.println(f.solve());
 	System.out.println(f);}
