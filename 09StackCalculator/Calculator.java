@@ -1,20 +1,20 @@
 import java.util.*;
 public class Calculator{
-    public static void main(String[] args){
-	System.out.println(Calculator.eval("5 1 -"));
-    }
+  public static void main(String[] args) {
+System.out.println(eval("5 1 -"));
+}
     public static String eval(String expression){
-	LinkedList<String> data = new LinkedList<>();
+	Stack<String> data = new Stack<>();
 	String temp = "";
 	for(int c = 0; c < expression.length(); c++){
 	  if(expression.charAt(c) == ' '){
 		   if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
          double first = Double.parseDouble(data.pop());
          double second = Double.parseDouble(data.pop());
-         data.add(evaluate(temp, first, second));
+         data.push(evaluate(temp, first, second));
        }
           else{
-                 data.add(temp);
+                 data.push(temp);
                }
                temp = "";
 	            }
@@ -22,28 +22,25 @@ public class Calculator{
       temp += expression.charAt(c);
     }
 	    }
-      if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
-              double first = Double.parseDouble(data.pop());
-              double second = Double.parseDouble(data.pop());
-              data.add(evaluate(temp, first, second));
-            }
-	return data.getFirst();
+      double first = Double.parseDouble(data.pop());
+      double second = Double.parseDouble(data.pop());
+      return evaluate(temp, first, second);
     }
     public static String evaluate(String op, double first, double second){
       if(op.equals("+")){
-        return (first + second) + "";
+        return (second + first) + "";
       }
       else if(op.equals("-")){
-        return (first - second) + "";
+        return (second - first) + "";
       }
       else if(op.equals("*")){
-        return (first * second) + "";
+        return (second * first) + "";
       }
       else if(op.equals("/")){
-        return (first / second) + "";
+        return (second / first) + "";
       }
       else{
-        return (first % second) + "";
+        return (second % first) + "";
       }
     }
 }
