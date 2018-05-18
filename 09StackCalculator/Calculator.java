@@ -1,7 +1,7 @@
 import java.util.*;
 public class StackCalculator{
   public static void main(String[] args) {
-System.out.println(eval("5 1 -"));
+System.out.println(eval("5"));
 }
     public static String eval(String expression){
 	Stack<String> data = new Stack<>();
