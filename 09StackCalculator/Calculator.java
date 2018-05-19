@@ -1,13 +1,25 @@
 import java.util.*;
 public class Calculator{
-    public static void main(String[] args){
-	System.out.println(Calculator.eval("5 3 -"));
-    }
+  public static void main(String[] args) {
+    System.out.println(eval("6 6 +"));
+    System.out.println(eval("11 3 - 4 + 2.5 *"));
+    System.out.println(eval("8 2 + 99 9 - * 2 + 9 -"));
+    System.out.println(eval("6 "));
+    System.out.println(eval("-6 "));
+    System.out.println(eval("-6"));
+    System.out.println(eval("6"));
+}
     public static String eval(String expression){
-	LinkedList<String> data = new LinkedList<>();
+	Stack<String> data = new Stack<>();
 	String temp = "";
-  if(expression.length() == 1){
-    data.add(expression);
+  int spaces = 0;
+  for(int counter = 0; counter < expression.length(); counter++){
+    if(expression.charAt(counter) == ' '){
+      spaces++;
+    }
+  }
+  if(spaces == 0 || spaces == 1){
+    return expression;
   }
   else{
 	for(int c = 0; c < expression.length(); c++){
@@ -15,40 +27,37 @@ public class Calculator{
 		   if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
          double first = Double.parseDouble(data.pop());
          double second = Double.parseDouble(data.pop());
-         data.add(evaluate(temp, first, second));
+         data.push(evaluate(temp, first, second));
        }
           else{
-                 data.add(temp);
+                 data.push(temp);
                }
                temp = "";
 	            }
 	  else{
       temp += expression.charAt(c);
     }
-	    }
-      if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
-              double first = Double.parseDouble(data.pop());
-              double second = Double.parseDouble(data.pop());
-              data.add(evaluate(temp, first, second));
-            }
-          }
-	return data.getFirst();
+  }
+      double first = Double.parseDouble(data.pop());
+      double second = Double.parseDouble(data.pop());
+      return evaluate(temp, first, second);
+    }
     }
     public static String evaluate(String op, double first, double second){
       if(op.equals("+")){
-        return (first + second) + "";
+        return (second + first) + "";
       }
       else if(op.equals("-")){
-        return (first - second) + "";
+        return (second - first) + "";
       }
       else if(op.equals("*")){
-        return (first * second) + "";
+        return (second * first) + "";
       }
       else if(op.equals("/")){
-        return (first / second) + "";
+        return (second / first) + "";
       }
       else{
-        return (first % second) + "";
+        return (second % first) + "";
       }
     }
 }
