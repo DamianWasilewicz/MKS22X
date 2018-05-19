@@ -1,20 +1,24 @@
 import java.util.*;
-public class StackCalculator{
-  public static void main(String[] args) {
-System.out.println(eval("5"));
-}
+public class Calculator{
+    public static void main(String[] args){
+	System.out.println(Calculator.eval("5 3 -"));
+    }
     public static String eval(String expression){
-	Stack<String> data = new Stack<>();
+	LinkedList<String> data = new LinkedList<>();
 	String temp = "";
+  if(expression.length() == 1){
+    data.add(expression);
+  }
+  else{
 	for(int c = 0; c < expression.length(); c++){
 	  if(expression.charAt(c) == ' '){
 		   if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
          double first = Double.parseDouble(data.pop());
          double second = Double.parseDouble(data.pop());
-         data.push(evaluate(temp, first, second));
+         data.add(evaluate(temp, first, second));
        }
           else{
-                 data.push(temp);
+                 data.add(temp);
                }
                temp = "";
 	            }
@@ -22,25 +26,29 @@ System.out.println(eval("5"));
       temp += expression.charAt(c);
     }
 	    }
-      double first = Double.parseDouble(data.pop());
-      double second = Double.parseDouble(data.pop());
-      return evaluate(temp, first, second);
+      if(temp.equals("+") || temp.equals("-") || temp.equals("/") || temp.equals("%") || temp.equals("*")){
+              double first = Double.parseDouble(data.pop());
+              double second = Double.parseDouble(data.pop());
+              data.add(evaluate(temp, first, second));
+            }
+          }
+	return data.getFirst();
     }
     public static String evaluate(String op, double first, double second){
       if(op.equals("+")){
-        return (second + first) + "";
+        return (first + second) + "";
       }
       else if(op.equals("-")){
-        return (second - first) + "";
+        return (first - second) + "";
       }
       else if(op.equals("*")){
-        return (second * first) + "";
+        return (first * second) + "";
       }
       else if(op.equals("/")){
-        return (second / first) + "";
+        return (first / second) + "";
       }
       else{
-        return (second % first) + "";
+        return (first % second) + "";
       }
     }
 }
