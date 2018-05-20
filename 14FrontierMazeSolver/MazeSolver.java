@@ -1,13 +1,13 @@
 import java.io.FileNotFoundException;
 public class MazeSolver{
   private Maze maze;
-  private boolean AstarIs;
   private Frontier frontier;
+  private boolean aStar = false;
   public static void main(String[] args){
     try{
     MazeSolver test = new MazeSolver("data3.dat");
     System.out.println(test.maze);
-    System.out.println(test.solve(1));
+    System.out.println(test.solve(3));
 
      }catch(FileNotFoundException e){
        System.out.println("File not found");
@@ -36,23 +36,22 @@ public class MazeSolver{
     if(mode == 0){
       frontier = new FrontierQueue();
     }
-    if(mode == 1){
+    else if(mode == 1){
       frontier = new FrontierStack();
     }
-    if(mode == 2){
+    else if(mode == 2){
       frontier = new FrontierPriorityQueue();
-      AstarIs = false;
     }
     else{
-	frontier = new FrontierPriorityQueue();
-	AstarIs = true;
+      frontier = new FrontierPriorityQueue();
+      setAStar(true);
     }
     Location e = maze.getEnd();
     frontier.add(maze.getStart());
     while(frontier.hasNext()){
       Location temp = frontier.next();
-    //  System.out.println(maze);
-      Location[] neighbors = maze.getNeighbors(temp, AstarIs);
+      System.out.println(maze.toStringColor(15));
+      Location[] neighbors = maze.getNeighbors(temp, aStar);
       if(!temp.equals(maze.getStart())){
         maze.set(temp.getX(), temp.getY(), '.');
       }
@@ -63,7 +62,7 @@ public class MazeSolver{
               maze.set(temp.getX(), temp.getY(), '@');
               temp = temp.getPrev();
             }
-              System.out.println(maze);
+            System.out.println(maze.toStringColor(15));
           return true;
         }
           frontier.add(n);
@@ -73,7 +72,9 @@ public class MazeSolver{
     }
     return false;
   }
-
+  public void setAStar(boolean star){
+    aStar = star;
+  }
   public String toString(){
     return maze.toString();
   }
