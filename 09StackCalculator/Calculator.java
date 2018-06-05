@@ -9,7 +9,7 @@ public class Calculator{
     System.out.println(eval("-6"));
     System.out.println(eval("6"));
 }
-    public static String eval(String expression){
+    public static double eval(String expression){
 	Stack<String> data = new Stack<>();
 	String temp = "";
   int spaces = 0;
@@ -19,7 +19,7 @@ public class Calculator{
     }
   }
   if(spaces == 0 || spaces == 1){
-    return expression;
+    return Double.parseDouble(expression);
   }
   else{
 	for(int c = 0; c < expression.length(); c++){
@@ -40,7 +40,7 @@ public class Calculator{
   }
       double first = Double.parseDouble(data.pop());
       double second = Double.parseDouble(data.pop());
-      return evaluate(temp, first, second);
+      return Double.parseDouble(evaluate(temp, first, second));
     }
     }
     public static String evaluate(String op, double first, double second){
