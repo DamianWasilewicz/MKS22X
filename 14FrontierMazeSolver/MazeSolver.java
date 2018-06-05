@@ -5,9 +5,9 @@ public class MazeSolver{
   private boolean aStar = false;
   public static void main(String[] args){
     try{
-    MazeSolver test = new MazeSolver("data3.dat");
+    MazeSolver test = new MazeSolver("data2.dat");
     System.out.println(test.maze);
-    System.out.println(test.solve(3));
+    System.out.println(test.solve(2));
 
      }catch(FileNotFoundException e){
        System.out.println("File not found");
@@ -26,6 +26,9 @@ public class MazeSolver{
   //0: BFS
   //1: DFS
   public boolean solve(int mode){
+    clearTerminal();
+    //System.out.println(this);
+    wait(20);
     //initialize your frontier
     //while there is stuff in the frontier:
     //  get the next location
@@ -49,8 +52,11 @@ public class MazeSolver{
     Location e = maze.getEnd();
     frontier.add(maze.getStart());
     while(frontier.hasNext()){
+    //  clearTerminal();
+      //System.out.println(this);
+    //  wait(20);
       Location temp = frontier.next();
-      System.out.println(maze.toString());
+      //System.out.println(maze.toString());
       Location[] neighbors = maze.getNeighbors(temp, aStar);
       if(!temp.equals(maze.getStart())){
         maze.set(temp.getX(), temp.getY(), '.');
@@ -62,7 +68,7 @@ public class MazeSolver{
               maze.set(temp.getX(), temp.getY(), '@');
               temp = temp.getPrev();
             }
-            System.out.println(maze.toString());
+            //System.out.println(maze.toString());
           return true;
         }
           frontier.add(n);
@@ -78,4 +84,15 @@ public class MazeSolver{
   public String toString(){
     return maze.toString();
   }
+  private void wait(int millis){
+         try {
+             Thread.sleep(millis);
+         }
+         catch (InterruptedException e) {
+         }
+     }
+     public void clearTerminal(){
+ //erase terminal, go to top left of screen.
+ System.out.println("\033[2J\033[1;1H");
+   }
 }
