@@ -50,7 +50,7 @@ public class MazeSolver{
     frontier.add(maze.getStart());
     while(frontier.hasNext()){
       Location temp = frontier.next();
-      System.out.println(maze.toStringColor(15));
+      System.out.println(maze.toString());
       Location[] neighbors = maze.getNeighbors(temp, aStar);
       if(!temp.equals(maze.getStart())){
         maze.set(temp.getX(), temp.getY(), '.');
@@ -62,7 +62,7 @@ public class MazeSolver{
               maze.set(temp.getX(), temp.getY(), '@');
               temp = temp.getPrev();
             }
-            System.out.println(maze.toStringColor(15));
+            System.out.println(maze.toString());
           return true;
         }
           frontier.add(n);
