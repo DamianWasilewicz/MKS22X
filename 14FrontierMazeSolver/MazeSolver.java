@@ -5,9 +5,9 @@ public class MazeSolver{
   private boolean aStar = false;
   public static void main(String[] args){
     try{
-    MazeSolver test = new MazeSolver("data3.dat");
-    System.out.println(test.maze);
-    System.out.println(test.solve(1));
+    MazeSolver test = new MazeSolver("data1.dat");
+  //  System.out.println(test.maze);
+    //System.out.println(test.solve(3));
 
      }catch(FileNotFoundException e){
        System.out.println("File not found");
@@ -68,7 +68,7 @@ public class MazeSolver{
               maze.set(temp.getX(), temp.getY(), '@');
               temp = temp.getPrev();
             }
-          //  System.out.println(maze.toString());
+            //System.out.println(maze.toString());
           return true;
         }
           frontier.add(n);
